@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  mysql:
+    build:
+      context: ./mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-db-data:/var/lib/mysql
+    networks:
+      - base
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "9003"
+    networks:
+      - base
+    env_file:
+      - .env.nginx.local
+    volumes:
+      - ../:/var/www/project
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ./php
+      args:
+        TIMEZONE: ${TIMEZONE}
+    volumes:
+      - ../:/var/www/project
+    expose:
+      - "9003"
+    networks:
+      - base
+    depends_on:
+      - mysql
+
+networks:
+  base:
+
+volumes:
+  mysql-db-data:
