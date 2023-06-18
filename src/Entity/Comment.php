@@ -15,7 +15,7 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $coment = null;
+    private ?string $comment = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -29,14 +29,14 @@ class Comment
         return $this->id;
     }
 
-    public function getComent(): ?string
+    public function getComment(): ?string
     {
-        return $this->coment;
+        return $this->comment;
     }
 
-    public function setComent(string $coment): static
+    public function setComment(string $comment): static
     {
-        $this->coment = $coment;
+        $this->comment = $comment;
 
         return $this;
     }
