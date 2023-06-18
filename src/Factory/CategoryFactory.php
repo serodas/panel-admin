@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -46,9 +47,10 @@ final class CategoryFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $slugger = new AsciiSlugger();
         return [
-            'name' => self::faker()->word(),
-            'slug' => self::faker()->word(),
+            'name' => $name = self::faker()->unique()->word(),
+            'slug' => $slugger->slug($name)
         ];
     }
 
