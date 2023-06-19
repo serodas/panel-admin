@@ -12,8 +12,13 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
-    {   
+    {
         UserFactory::createMany(8);
+        UserFactory::createOne([
+            'name' => 'me',
+            'email' => 'user@mail.com',
+            'roles' => ["ROLE_ADMIN"]
+        ]);
 
         CategoryFactory::createMany(8);
 
