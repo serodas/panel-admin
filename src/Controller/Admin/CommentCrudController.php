@@ -32,7 +32,8 @@ class CommentCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('comment'),
             TextEditorField::new('content'),
-            AssociationField::new('post')
+            AssociationField::new('post'),
+            AssociationField::new('user')
         ];
     }
 }
