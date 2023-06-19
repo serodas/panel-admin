@@ -25,7 +25,8 @@ class PageController extends AbstractController
     public function post(
         Request $request,
         Post $post,
-        CommentProcessor $commentProcessor
+        CommentProcessor $commentProcessor,
+        PostRepository $postRepository
     ): Response {
         $form = $this->createForm(CommentType::class, null, [
             'action' => $this->generateUrl('app_post', [
@@ -36,11 +37,11 @@ class PageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $comment = ($commentProcessor)($data, $post);
-            // dd($comment);
+
             return $this->redirectToRoute('app_home');
         }
         return $this->render('page/post.html.twig', [
-            'post' => $post,
+            'post' => $postRepository->findOneBySlug($post->getSlug()),
             'form' => $form->createView()
         ]);
     }
