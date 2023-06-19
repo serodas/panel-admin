@@ -16,7 +16,10 @@
     </div>
     <div>
         {% for comment in post.comments %}
-            <p> {{ comment.content }}</p>
+            <p>
+                <strong>{{ comment.user.name }}</strong>
+                {{ comment.content }}
+            </p>
             <hr>
         {% endfor %}
     </div>
