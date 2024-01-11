@@ -3,40 +3,41 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div>
+		<main class="form-signin">
+			<form method="post">
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+            	<div class="form-floating">
+					<a href="/connect/google" class="btn btn-google w-100">
+						<img 
+							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTggMTgiIHdpZHRoPSIxOHB4IiBoZWlnaHQ9IjE4cHgiPgo8ZyBpZD0ic3VyZmFjZTMxNDA5NiI+CjxwYXRoIHN0eWxlPSIgc3Ryb2tlOm5vbmU7ZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMTAwJSwxMDAlLDEwMCUpO2ZpbGwtb3BhY2l0eToxOyIgZD0iTSA5LjAwMzkwNiAxLjgwMDc4MSBDIDUuMDIzNDM4IDEuODAwNzgxIDEuODAwNzgxIDUuMDIzNDM4IDEuODAwNzgxIDkgQyAxLjgwMDc4MSAxMi45NzY1NjIgNS4wMjM0MzggMTYuMTk5MjE5IDkuMDAzOTA2IDE2LjE5OTIxOSBDIDE1LjAwNzgxMiAxNi4xOTkyMTkgMTYuMzYzMjgxIDEwLjYyNSAxNS43OTY4NzUgNy44MDA3ODEgTCA5IDcuODAwNzgxIEwgOSAxMC4xOTkyMTkgTCAxMy42NDQ1MzEgMTAuMTk5MjE5IEMgMTMuMTA5Mzc1IDEyLjI2OTUzMSAxMS4yMzQzNzUgMTMuODAwNzgxIDkgMTMuODAwNzgxIEMgNi4zNDc2NTYgMTMuODAwNzgxIDQuMTk5MjE5IDExLjY1MjM0NCA0LjE5OTIxOSA5IEMgNC4xOTkyMTkgNi4zNDc2NTYgNi4zNDc2NTYgNC4xOTkyMTkgOSA0LjE5OTIxOSBDIDEwLjIwNzAzMSA0LjE5OTIxOSAxMS4zMDQ2ODggNC42NDg0MzggMTIuMTQ4NDM4IDUuMzgyODEyIEwgMTMuODUxNTYyIDMuNjc1NzgxIEMgMTIuNTcwMzEyIDIuNTExNzE5IDEwLjg3MTA5NCAxLjgwMDc4MSA5LjAwMzkwNiAxLjgwMDc4MSBaIE0gOS4wMDM5MDYgMS44MDA3ODEgIi8+CjwvZz4KPC9zdmc+Cg=="
+							alt="Google Logo"
+						><span>Iniciar sesión con Google</span>
+					</a>
+				</div>
+				<div class="form-divider">
+					<span class="form-divider--text">O</span>
+				</div>
+				{% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security')}}</div>
+                {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+				<div class="form-floating">
+					<label for="inputEmail">email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+				</div>
+				<div class="form-floating">
+					<label for="inputPassword">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+				</div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+			</form>
+		</main>
+    </div>
 {% endblock %}

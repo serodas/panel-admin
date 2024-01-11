@@ -63,10 +63,6 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
     && printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini \
     && "date"
 
-COPY odbc/ibm-iaccess-1.1.0.12-1.0.amd64.deb /tmp/
-RUN dpkg -i /tmp/ibm-iaccess-1.1.0.12-1.0.amd64.deb
-RUN rm /tmp/ibm-iaccess-1.1.0.12-1.0.amd64.deb
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
