@@ -1,5 +1,5 @@
 <h1 align="center">
-  WebApp con Symfony 6 y Google Auth
+  WebApp with Symfony 6 and Google Auth
 </h1>
 
 <p align="center">
